@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block breadcrumbs %}
+<style>
+  .tags-list {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 20px;
+  }
+
+  .tags-list li {
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+  .tags-list li:first-child {
+    font-weight: bold;
+  }
+
+  .tags-list li a {
+    color: #007bff;
+    text-decoration: none;
+  }
+
+  .tags-list li a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<!-- Теги -->
+{% with post.tags.all as tags %}
+{% if tags %}
+<ul class="tags-list">
+    <li>Теги:</li>
+    {% for t in tags %}
+    <li><a href="{{t.get_absolute_url}}">{{t.tag}}</a></li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+{% endblock %}
+
+{% block content %}
+<style>
+  .img-article-left {
+    float: left;
+    margin-right: 20px;
+    max-width: 300px;
+    max-height: 300px;
+  }
+</style>
+
+<h1>{{post.title}}</h1>
+
+{% if post.photo %}
+<p><img class="img-article-left" src="{{post.photo.url}}"></p>
+{% endif %}
+
+{{post.content|linebreaks}}
+{% endblock %}

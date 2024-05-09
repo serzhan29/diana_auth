@@ -1,0 +1,13 @@
+#header, .module caption, #changelist-filter h2 {
+    background: #2E4E5E; /* новый цвет для фона */
+    color: #FFFFFF; /* новый цвет для текста */
+    padding: 10px; /* добавляем заполнение для улучшения визуального отображения */
+}
+
+div.breadcrumbs {
+    background: #8C7D7A; /* новый цвет для фона */
+    color: #FFFFFF; /* новый цвет для текста */
+    padding: 5px; /* добавляем небольшое заполнение */
+    border-radius: 5px; /* добавляем скругление углов */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* добавляем тень для подчеркивания */
+}

@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+  .auth-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .auth-form h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #343a40;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-label {
+    display: block;
+    margin-bottom: 5px;
+    color: #495057;
+  }
+
+  .form-control {
+    width: calc(100% - 24px);
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    box-sizing: border-box;
+  }
+
+  .form-control:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+
+  .form-error {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+
+  .btn {
+    display: block;
+    width: calc(100% - 24px);
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn:hover {
+    background-color: #0056b3;
+  }
+
+  .btn-password-reset {
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .btn-password-reset a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .btn-password-reset a:hover {
+    color: #0056b3;
+  }
+</style>
+
+<div class="auth-form">
+  <h1>Авторизация</h1>
+
+  <form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ next }}" />
+    <div class="form-error">{{ form.non_field_errors }}</div>
+    {% for f in form %}
+      <div class="form-group">
+        <label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}</label>
+        {{ f }}
+        <div class="form-error">{{ f.errors }}</div>
+      </div>
+    {% endfor %}
+    <button type="submit" class="btn">Войти</button>
+  </form>
+
+  <div class="btn-password-reset">
+    <a href="{% url 'users:password_reset' %}">Забыли пароль?</a>
+  </div>
+</div>
+{% endblock %}
