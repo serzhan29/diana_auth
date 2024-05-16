@@ -6,7 +6,7 @@ from django.urls import path, include
 from actors import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='admin'),
     path('', include('actors.urls')),
     path('users/', include('users.urls', namespace="users")),
     path("__debug__/", include("debug_toolbar.urls")),
