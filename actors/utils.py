@@ -1,7 +1,7 @@
 menu = [
         {'title': "Басты бет", 'url_name': 'home'},
         #{'title': "О сайте", 'url_name': 'about'},
-        {'title': "Мақала қосу", 'url_name': 'add_page'},
+        #{'title': "Мақала қосу", 'url_name': 'add_page'},
         #{'title': "Обратная связь", 'url_name': 'contact'},
         #{'title': "Административная панель", 'url_name': 'admin'},
         ]

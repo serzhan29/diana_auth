@@ -2,133 +2,60 @@
 
 {% block style %}
 <style>
-    /* Стили для списка статей */
-    .list-articles {
-        list-style-type: none;
-        padding: 0;
-    }
-
-    .list-articles li {
-        margin-bottom: 20px;
-        border: 1px solid #ccc;
-        padding: 20px;
-    }
-
-    .article-panel {
-        margin-bottom: 10px;
-        font-size: 14px;
-    }
-
-    .article-panel p {
-        margin: 0;
-    }
-
-    .img-article-left {
-        float: left;
-        margin-right: 20px;
-    }
-
-    .thumb {
-        width: 100px; /* Измените размеры, если необходимо */
-        height: auto;
-    }
-
-    .link-read-post a {
-        color: #007bff; /* Цвет ссылки */
-    }
-
-    .link-read-post a:hover {
-        text-decoration: underline; /* Подчеркивание при наведении */
-    }
-
-    .clear {
-        clear: both;
-    }
-
-    /* Стили для навигации по страницам */
-    .list-pages {
-        margin-top: 20px;
-        text-align: center;
-    }
-
-    .list-pages ul {
-        list-style-type: none;
-        padding: 0;
-    }
-
-    .list-pages li {
-        display: inline-block;
-        margin-right: 5px;
-    }
-
-    .page-num a {
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f8ff;
         color: #333;
-        text-decoration: none;
-        padding: 5px 10px;
-        border: 1px solid #ccc;
+        margin: 0;
+        padding: 0;
     }
 
-    .page-num-selected a {
-        background-color: #007bff;
-        color: #fff;
-        border-color: #007bff;
+    .profile-container {
+        width: 50%;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
     }
 
-    .page-num a:hover {
-        background-color: #f0f0f0;
+    .profile-container h1 {
+        text-align: center;
+        font-size: 2em;
+        color: #0066cc;
+    }
+
+    .profile-photo {
+        display: block;
+        margin: 0 auto;
+        border-radius: 50%;
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border: 4px solid #0066cc;
+    }
+
+    .profile-info {
+        margin-top: 20px;
+    }
+
+    .profile-info p {
+        font-size: 1.2em;
+        margin: 10px 0;
+        color: #555;
     }
 </style>
 {% endblock %}
 
 {% block content %}
-<ul class="list-articles">
-    {% for p in posts %}
-    <li>
-        <div class="article-panel">
-            <p class="first">Санат: {{p.cat.name}} | автор: {{ p.author.username|default:"неизвестен" }}</p>
-            <p class="last">Күні: {{p.time_update|date:"d-m-Y H:i:s"}}</p>
-        </div>
-        {% if p.photo %}
-            <p><img class="img-article-left thumb" src="{{p.photo.url}}"></p>
-        {% endif %}
-            <h2>{{p.title}}</h2>
-        {% autoescape off %}
-        {{p.content|linebreaks|truncatewords:40}}
-        {% endautoescape %}
-        <div class="clear"></div>
-		<p class="link-read-post" style="text-align: right; margin-top: 20px;">
-			<a class="button" href="{{ p.get_absolute_url }}" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: #fff; text-decoration: none; border-radius: 5px;">Читать</a>
-		</p>
-
-    </li>
-    {% endfor %}
-</ul>
-{% endblock %}
-
-{% block navigation %}
-{% if page_obj.has_other_pages %}
-<nav class="list-pages">
-    <ul>
-        {% if page_obj.has_previous %}
-        <li class="page-num">
-            <a href="?page={{ page_obj.previous_page_number }}">&lt;</a>
-        </li>
-        {% endif %}
-        {% for p in paginator.page_range %}
-        {% if page_obj.number == p %}
-        <li class="page-num page-num-selected">{{ p }}</li>
-        {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
-        <li class="page-num">
-            <a href="?page={{ p }}">{{ p }}</a>
-        </li>
-        {% endif %}
-        {% endfor %}
-        {% if page_obj.has_next %}
-        <li class="page-num">
-            <a href="?page={{ page_obj.next_page_number }}">&gt;</a>
-        </li>
-        {% endif %}
-    </ul>
-</nav>
-{% endif %}
+<div class="profile-container">
+    <h1>{{ user.username }}</h1>
+    <img class="profile-photo" src="{{ user.photo.url }}" alt="Profile Photo">
+    <div class="profile-info">
+        <p><strong>Дата рождения:</strong> {{ user.date_birth|default:"не заполнено" }}</p>
+        <p><strong>Email:</strong> {{ user.email|default:"не заполнено" }}</p>
+        <p><strong>Имя:</strong> {{ user.first_name|default:"не заполнено" }}</p>
+        <p><strong>Фамилия:</strong> {{ user.last_name|default:"не заполнено" }}</p>
+    </div>
+</div>
 {% endblock %}
